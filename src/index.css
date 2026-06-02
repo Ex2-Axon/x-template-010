@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0D1117;
+  --color-surface: #161B22;
+  --color-primary: #007AFF;
+  --color-accent: #60A5FA;
+  --color-text: #E0E0E0;
+  --color-muted: #8B949E;
+
+  --font-heading: "Inter", system-ui, sans-serif;
+  --font-body: "Roboto", system-ui, sans-serif;
+
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-flicker: flicker 0.15s infinite;
+  --animate-grid-float: grid-float 20s linear infinite;
+
+  @keyframes scanline {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(100%); }
+  }
+  @keyframes flicker {
+    0% { opacity: 0.97; }
+    5% { opacity: 0.95; }
+    10% { opacity: 0.9; }
+    15% { opacity: 0.95; }
+    20% { opacity: 0.98; }
+    25% { opacity: 0.95; }
+    30% { opacity: 0.9; }
+    100% { opacity: 1; }
+  }
+  @keyframes grid-float {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 40px; }
+  }
+}
+
+:root {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-background);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: var(--color-background);
+}
+
+/* ─── Global Technical Effects ─── */
+
+/* 1. Grid Background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0, 122, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 122, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: -1;
+  animation: var(--animate-grid-float);
+}
+
+/* 2. Scanline Effect */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  height: 2px;
+  background: rgba(96, 165, 250, 0.1);
+  box-shadow: 0 0 10px rgba(96, 165, 250, 0.2);
+  pointer-events: none;
+  z-index: 100;
+  animation: var(--animate-scanline);
+}
+
+/* 3. Noise Overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 99;
+}
+
+#root {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 2px;
+}

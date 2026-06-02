@@ -1,0 +1,215 @@
+/* ─── Layout Structure ─── */
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* 4. Crosshair Corners */
+.corner-bracket {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--color-primary);
+  pointer-events: none;
+}
+
+.cb-tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+.cb-tr { top: 0; right: 0; border-left: 0; border-bottom: 0; }
+.cb-bl { bottom: 0; left: 0; border-right: 0; border-top: 0; }
+.cb-br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* 5. Technical Borders */
+.tech-card {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid rgba(0, 122, 255, 0.2);
+  padding: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tech-card::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 20px;
+  right: 20px;
+  height: 1px;
+  background: var(--color-primary);
+  opacity: 0.5;
+}
+
+/* 6. Glitch/Flicker Effect */
+.glitch-text {
+  font-family: var(--font-heading);
+  font-weight: 900;
+  letter-spacing: -0.05em;
+  text-transform: uppercase;
+  animation: var(--animate-flicker);
+  position: relative;
+}
+
+/* 7. Pulse Indicators */
+.status-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 8px;
+  box-shadow: 0 0 10px var(--color-primary);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.5); opacity: 0.5; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 8. Skew/Translate Hover */
+.tech-button {
+  background: transparent;
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease;
+}
+
+.tech-button:hover {
+  background: var(--color-primary);
+  color: white;
+  transform: skewX(-5deg) translateX(5px);
+  box-shadow: -5px 5px 0 var(--color-accent);
+}
+
+/* 9. Corner Data Labels */
+.data-label {
+  position: absolute;
+  font-family: ui-monospace, monospace;
+  font-size: 0.6rem;
+  color: var(--color-muted);
+  text-transform: uppercase;
+}
+
+/* 10. Counter Animation */
+.counter-num {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-accent);
+  display: inline-block;
+  min-width: 1.5ch;
+  text-align: center;
+}
+
+/* ─── Hero Section ─── */
+.hero-container {
+  padding: 4rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.hero-visual {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-visual .base {
+  width: 140px;
+  height: auto;
+  z-index: 1;
+}
+
+.logo-float {
+  position: absolute;
+  width: 40px;
+  animation: float 4s ease-in-out infinite;
+}
+
+.logo-react { top: 10%; right: 10%; animation-delay: -1s; }
+.logo-vite { bottom: 10%; left: 10%; animation-delay: -2s; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-15px) rotate(10deg); }
+}
+
+/* ─── Documentation & Social ─── */
+.grid-sections {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid-sections {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.section-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.link-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.link-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid transparent;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.link-item:hover {
+  background: rgba(0, 122, 255, 0.1);
+  border-left-color: var(--color-primary);
+  transform: translateX(5px);
+}
+
+.link-icon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-accent);
+}
+
+/* ─── Footer ─── */
+footer {
+  padding: 2rem;
+  text-align: center;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
+  color: var(--color-muted);
+  font-size: 0.875rem;
+}
